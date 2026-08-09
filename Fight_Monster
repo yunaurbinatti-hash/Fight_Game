@@ -17,7 +17,7 @@ def poser_question():
     print("\nWelcome", name, "!!")
     time.sleep(1)
 poser_question()
-print("\n=== COMBAT TEST ===")
+print("\n=== FIGHT TEST ===")
 time.sleep(3)
 
 while player_hp > 0 and monster_hp > 0:
