@@ -9,9 +9,16 @@ player_hp = 100
 monster_hp = 100
 def poser_question():
     nom = input("What's your name ?").strip().capitalize()
+    time.sleep(1.5)
+    print("\nOkay... okay, I see...")
+    time.sleep(1.5)
+    print("So... you are", nom, "right ?")
+    time.sleep(2.5)
     print("\nWelcome", nom, "!!")
+    time.sleep(1)
 poser_question()
-print("=== COMBAT TEST ===")
+print("\n=== COMBAT TEST ===")
+time.sleep(3)
 
 while player_hp > 0 and monster_hp > 0:
     # Base stats for the turn
