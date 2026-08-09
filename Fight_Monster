@@ -1,20 +1,20 @@
 import random
 import time
 
-oui = ["oui", "ok", "okay", "ui", "yes", "ye", "oe", "ouais", "yep", "ouaip"]
+oui = ["oui", "ok", "okay", "ui", "yes", "ye", "oe", "ouais", "yep", "ouaip", "yeah"]
 non = ["no", "non", "nop", "nion", "n", "nn", "nah", "na", "nan"]
 
 mana = 120
 player_hp = 100
-monster_hp = 100
+monster_hp = 115
 def poser_question():
-    nom = input("What's your name ?").strip().capitalize()
+    name = input("What's your name ?").strip().capitalize()
     time.sleep(1.5)
     print("\nOkay... okay, I see...")
     time.sleep(1.5)
-    print("So... you are", nom, "right ?")
+    print("So... you are", name, "right ?")
     time.sleep(2.5)
-    print("\nWelcome", nom, "!!")
+    print("\nWelcome", name, "!!")
     time.sleep(1)
 poser_question()
 print("\n=== COMBAT TEST ===")
