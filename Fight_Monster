@@ -1,1 +1,80 @@
+import random
+import time
 
+oui = ["oui", "ok", "okay", "ui", "yes", "ye", "oe", "ouais", "yep", "ouaip"]
+non = ["no", "non", "nop", "nion", "n", "nn", "nah", "na", "nan"]
+
+mana = 120
+player_hp = 100
+monster_hp = 100
+def poser_question():
+    nom = input("What's your name ?").strip().capitalize()
+    print("\nWelcome", nom, "!!")
+poser_question()
+print("=== COMBAT TEST ===")
+
+while player_hp > 0 and monster_hp > 0:
+    # Base stats for the turn
+    monster_heal = random.randint(0,2)
+    player_heal = random.randint(0,1)
+    player_damage = random.randint(1,6)
+    monster_damage = random.randint(2,4)
+
+    # Crits before applying
+    if random.randint(1,10) == 10:
+        print("PLAYER CRITICAL 💥 ! DAMAGE X2 !")
+        player_damage *= 2
+    if random.randint(1,10) == 10:
+        print("MONSTER CRITICAL 💥 ! DAMAGE X2.5 !")
+        monster_damage = int(monster_damage * 2.5)
+
+    # FIREBALL
+    if random.randint(1,15) == 15 and mana >= 50:
+        use = input("Do you want to use Fireball? -50 mana\nDamage x2.5 and damage taken x0.5\n(Yes / No)\n").strip().lower()
+        if use in oui:
+            print("FIREBALLLL 🔥🔥 !!")
+            player_damage = int(player_damage * 2.5)
+            monster_damage = int(monster_damage * 0.5)
+            mana -= 50
+            print(f"{mana} mana remaining!")
+        else:
+            print("FIREBALL NOT USED")
+
+    # DRAIN
+    if random.randint(1,12) == 12 and mana >= 70:
+        useDrain = input("Do you want to use Drain? -70 mana\nEnemy attack converted to HP\n(Yes/No)\n").strip().lower()
+        if useDrain in oui:
+            player_hp += monster_damage
+            mana -= 70
+            print(f"DRAIN USED !! 😈 You healed: {monster_damage} HP!")
+        else:
+            print("DRAIN NOT USED")
+
+        # MANA RECHARGE: happens in any case if Drain appeared
+        try:
+            recharge = int(input(f"You have {mana} mana. How much to recharge? You lose the same amount of HP.\n").strip())
+            if recharge > 0:
+                if player_hp > recharge:  # avoids dying while recharging
+                    mana += recharge
+                    player_hp -= recharge
+                    print(f"+{recharge} mana! -{recharge} HP!")
+                else:
+                    print("Not enough HP to recharge that much.")
+        except ValueError:
+            print("Recharge cancelled.")
+
+    # Apply damage and heals for the turn
+    player_hp = player_hp - monster_damage + player_heal
+    monster_hp = monster_hp - player_damage + monster_heal
+
+    print(f"\n>You: {player_damage} damage | Monster: {monster_damage} damage")
+    print(f">Your HP: {max(0, player_hp)} +{player_heal} ❤️ | Monster HP: {max(0, monster_hp)} +{monster_heal} ❤️")
+    print(f">Mana: {mana}\n")
+    time.sleep(0.5)
+
+if player_hp > 0:
+    print("Well done! You win 🏆")
+elif monster_hp > 0:
+    print("You lose 😭")
+else:
+    print("Perfect tie! You both died together 💀")
